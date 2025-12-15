@@ -1,5 +1,7 @@
 const output = document.getElementById("output");
 const apiKey = "11f8c4085d8dde74e0cc1eba3f7a54e0";
+const getForecastBtn = document.getElementById("getForecastBtn");
+const cityInput = document.getElementById("cityInput");
 
 //run when page loads
 window.addEventListener("load", getLocation);
@@ -24,13 +26,13 @@ function getLocation() {
 }
 //fetch 5 day forecast data with lat and lon
 function fetchForecast(lat, lon) {
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`) //fetches all info including some past dates
         .then(res => res.json())
         .then(data => {
-            console.log("RAW FORECAST DATA:", data); //log raw data to view
-            const filteredList = data.list.filter(item => { //filter out past dates and times
-                const itemDate = item.dt_txt.split(" ")[0]; //get date part only and compare to today's date
-                return itemDate >= getTodayDateString(); //retain only items from today onwards
+            console.log("RAW FORECAST DATA:", data);
+            const filteredList = data.list.filter(item => {
+                const itemDate = new Date(item.dt * 1000).toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
+                return itemDate >= getTodayDateString();
             });
 
             const dailyForecast = processForecast(filteredList);
@@ -43,7 +45,7 @@ function fetchForecast(lat, lon) {
 
 //fetch current weather (short-term/current conditions) and log it
 function fetchCurrentWeather(lat, lon) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`) //fetch current weather data
         .then(res => res.json())
         .then(data => {
             console.log("RAW CURRENT WEATHER DATA:", data); //log raw current weather data to view
@@ -58,17 +60,17 @@ function processForecast(list) {
     const days = {};
 
     list.forEach(item => {
-        const date = item.dt_txt.split(" ")[0]; //get date part only
+        const date = new Date(item.dt * 1000).toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
         const temp = item.main.temp;
 
-        if (!days[date]) {
-            days[date] = {
+        if (!days[date]) { // 
+            days[date] = { // within each date, store high and low temps
                 high: temp,
                 low: temp
             };
-        } else {
-            days[date].high = Math.max(days[date].high, temp);
-            days[date].low = Math.min(days[date].low, temp);
+        } else { //update high and low temps if needed
+            days[date].high = Math.max(days[date].high, temp);//comparing current high with new temp
+            days[date].low = Math.min(days[date].low, temp); //comparing current low with new temp
         }
     });
     const sortedDates = Object.keys(days).sort();
@@ -77,29 +79,29 @@ function processForecast(list) {
 }
 
 //display 5 day forecast
-function displayForecast(days) {
-    output.innerHTML = "";
+function displayForecast(days) { 
+    output.innerHTML = ""; //clear old content
 
     days.forEach(([date, temps]) => {
         const dayEl = document.createElement("div");
+            dayEl.classList.add("dayCSS");
         dayEl.innerHTML = `
             <strong>${getDayName(date)},  ${date}</strong><br>
-            High: ${Math.round(temps.high)}°F<br>
-            Low: ${Math.round(temps.low)}°F
-            <hr width="25%">
+            High: ${Math.round(temps.high)}°<br>
+            Low: ${Math.round(temps.low)}°
+            <hr>
         `;
         output.appendChild(dayEl);
     });
 }
 
-//helper to get day name from date string
-function getDayName(dateString) {
-    const [year, month, day] = dateString.split("-");
-    const date = new Date(year, month - 1, day); // local time, not UTC
-    return date.toLocaleDateString("en-US", { weekday: "short" });
+
+function getDayName(dateString) { //convert date string to day name
+    const date = new Date(`${dateString}T12:00:00`); //set time to noon to avoid timezone issues
+    return date.toLocaleDateString("en-US", { weekday: "short", timeZone: 'America/Los_Angeles' }); //get short day name
 }
 
-
-function getTodayDateString() { //helper to get today's date in YYYY-MM-DD format
-    return new Date().toISOString().split("T")[0]; //convert to ISO and split to get date part ex. "2024-06-15"
+function getTodayDateString() {
+    return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' }); //from current date object and format to YYYY-MM-DD and set timezone
 }
+

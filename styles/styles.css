@@ -9,9 +9,4 @@
     font-weight: 400;
 }
 
-/* small container styling to keep layout tidy */
-body {
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-    padding: 16px;
-    background: #f8f9fa;
-}
+

@@ -95,19 +95,21 @@ function processForecast(list) {
 
       const highDeltas = [];
       const lowDeltas = [];
-      for (let i = 1; i < highs.length; i++) {
-          highDeltas.push(highs[i] - highs[i - 1]);
-          lowDeltas.push(lows[i] - lows[i - 1]);
+      for (let i = 1; i < highs.length; i++) { //calculate daily changes
+          highDeltas.push(highs[i] - highs[i - 1]); //difference between current and previous high
+          lowDeltas.push(lows[i] - lows[i - 1]); //difference between current and previous low
       }
 
-      const avgHighDelta = highDeltas.reduce((a, b) => a + b, 0) / highDeltas.length;
-      const avgLowDelta = lowDeltas.reduce((a, b) => a + b, 0) / lowDeltas.length;
+      const avgHighDelta = highDeltas.reduce((a, b) => a + b, 0) / highDeltas.length; //average daily high change
+      const avgLowDelta = lowDeltas.reduce((a, b) => a + b, 0) / lowDeltas.length; //average daily low change
 
       // last known date
-      const lastDateStr = firstFive[firstFive.length - 1];
-      const lastDate = new Date(`${lastDateStr}T12:00:00`);
-      let prevHigh = highs[highs.length - 1];
-      let prevLow = lows[lows.length - 1];
+      const lastDateStr = firstFive[firstFive.length - 1]; //get last date string
+      const lastDate = new Date(`${lastDateStr}T12:00:00`); //set time to noon to avoid timezone issues
+      let prevHigh = highs[highs.length - 1]; //last known high temp
+      let prevLow = lows[lows.length - 1]; //last known low temp
+
+      //estimate next 2 days
 
       for (let i = 1; i <= 2; i++) {
           const nextDate = new Date(lastDate);

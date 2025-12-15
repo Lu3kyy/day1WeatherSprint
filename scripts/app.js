@@ -105,3 +105,23 @@ function getTodayDateString() {
     return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' }); //from current date object and format to YYYY-MM-DD and set timezone
 }
 
+getForecastBtn.addEventListener("click", () => { //HOLY MOLY IT WOKRS, this is my search function
+    const city = cityInput.value.trim();
+    if (city) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.coord) {
+                    const lat = data.coord.lat;
+                    const lon = data.coord.lon;
+                    fetchForecast(lat, lon);
+                    fetchCurrentWeather(lat, lon);
+                } else {
+                    output.textContent = "City not found.";
+                }
+            })
+            .catch(() => {
+                output.textContent = "Failed to load weather for the specified city.";
+            });
+    }
+});

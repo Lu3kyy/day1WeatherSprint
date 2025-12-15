@@ -86,7 +86,45 @@ function processForecast(list) {
   });
   const sortedDates = Object.keys(days).sort();
   const firstFive = sortedDates.slice(0, 5);
-  return firstFive.map((date) => [date, days[date]]);
+  const result = firstFive.map((date) => [date, days[date]]);
+
+  // If we have at least 2 days, estimate day 6 and 7 using average daily change
+  if (firstFive.length >= 2) {
+      const highs = firstFive.map(d => days[d].high);
+      const lows = firstFive.map(d => days[d].low);
+
+      const highDeltas = [];
+      const lowDeltas = [];
+      for (let i = 1; i < highs.length; i++) {
+          highDeltas.push(highs[i] - highs[i - 1]);
+          lowDeltas.push(lows[i] - lows[i - 1]);
+      }
+
+      const avgHighDelta = highDeltas.reduce((a, b) => a + b, 0) / highDeltas.length;
+      const avgLowDelta = lowDeltas.reduce((a, b) => a + b, 0) / lowDeltas.length;
+
+      // last known date
+      const lastDateStr = firstFive[firstFive.length - 1];
+      const lastDate = new Date(`${lastDateStr}T12:00:00`);
+      let prevHigh = highs[highs.length - 1];
+      let prevLow = lows[lows.length - 1];
+
+      for (let i = 1; i <= 2; i++) {
+          const nextDate = new Date(lastDate);
+          nextDate.setDate(lastDate.getDate() + i);
+          const nextDateStr = nextDate.toISOString().split('T')[0];
+
+          const estHigh = Math.round((prevHigh + avgHighDelta) * 10) / 10;
+          const estLow = Math.round((prevLow + avgLowDelta) * 10) / 10;
+
+          result.push([nextDateStr, { high: estHigh, low: estLow, estimated: true }]);
+
+          prevHigh = estHigh;
+          prevLow = estLow;
+      }
+  }
+
+  return result;
 }
 
 //display 5 day forecast
@@ -96,12 +134,16 @@ function displayForecast(days) {
   days.forEach(([date, temps]) => {
     const dayEl = document.createElement("div");
     dayEl.classList.add("dayCSS");
-    dayEl.innerHTML = `
-            <strong>${getDayName(date)},  ${date}</strong><br>
-            High: ${Math.round(temps.high)}°<br>
-            Low: ${Math.round(temps.low)}°
-            <hr>
-        `;
+      if (temps && temps.estimated) dayEl.classList.add('estimated');
+
+      const estimatedLabel = temps && temps.estimated ? ' <em>(Estimated)</em>' : '';
+
+      dayEl.innerHTML = `
+              <strong>${getDayName(date)}, ${date}</strong>${estimatedLabel}<br>
+              High: ${Math.round(temps.high)}°<br>
+              Low: ${Math.round(temps.low)}°
+              <hr>
+          `;
     output.appendChild(dayEl);
   });
 }

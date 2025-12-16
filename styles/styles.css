@@ -1,23 +1,13 @@
 .dayCSS {
     border: 1px solid #ffffff;
     padding: 12px;
-    margin: 8px 0;
-    border-radius: 6px;
+    margin: 15px;
+    border-radius: 40px;
     background-color: #b6b6b6;
     color: #000000;
     font-size: 20px;
     font-weight: 400;
-}
-
-.dayCSS.estimated {
-   border: 1px solid #ffffff;
-    padding: 12px;
-    margin: 8px 0;
-    border-radius: 6px;
-    background-color: #b6b6b6;
-    color: #000000;
-    font-size: 20px;
-    font-weight: 400;
+    background-color: #555555b7;
 }
 
 .body{
@@ -27,12 +17,13 @@
     background-attachment: fixed;
 }
 
-/* Search bar & button (top-left, 1/4 width of card) 🔧 */
 .card {
   position: relative;
+  background: rgba(128,128,128,0.25);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
-/* add top padding so absolute positioned search doesn't overlap content */
 .card .card-body {
   padding-top: 4rem;
 }
@@ -40,7 +31,7 @@
 .search-wrapper {
   position: absolute;
   top: 1rem;
-  left: 1rem;
+  left: 2rem;
   width: 25%;
   min-width: 220px;
   display: flex;
@@ -48,15 +39,13 @@
   z-index: 10;
 }
 
-/* unified rounded control */
 .search-input-group {
   display: flex;
   width: 100%;
   align-items: center;
-  background: #ffffff;
-  border-radius: 0.6rem;
+  background: #dbdbdb75;
+  border-radius: 3rem;
   padding: 0.25rem 0.5rem;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
   overflow: hidden;
 }
 
@@ -67,11 +56,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
+  background: transparent;
   border: none;
-  border-radius: 9999px; /* fully round so image looks clean */
+  border-radius: 9999px; 
   cursor: pointer;
-  color: var(--bs-primary);
   margin-right: 0.5rem;
 }
 
@@ -80,7 +68,6 @@
   height: 18px;
 }
 
-/* Ensure different possible class names for the image are handled and constrained */
 .search-btn img,
 .search-icon,
 .search-img {
@@ -91,22 +78,16 @@
   object-fit: cover;
   border-radius: 50%;
   display: block;
-  pointer-events: none; /* allow the button to receive clicks */
+  pointer-events: none; 
 }
 
 .search-fallback {
   display: inline-block;
 }
 
-/* tighten button padding so the image appears centered and not oversized */
 .search-btn {
   padding: 6px;
   box-sizing: border-box;
-}
-
-.search-btn:focus {
-  outline: 2px solid rgba(13,110,253,0.2);
-  outline-offset: 2px;
 }
 
 .search-input-group .form-control {
@@ -119,7 +100,61 @@
 }
 
 .search-input-group .form-control::placeholder {
-  color: #6c757d;
+  color: #b3b3b3;
 }
+
+.forecast-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 1.5rem;
+  padding-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.forecast-box {
+  min-width: 110px;
+  width: 120px;
+  min-height: 160px;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 12px;
+  padding: 12px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+.forecast-box .day-name {
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.weather-icon {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  cursor: default;
+  border-radius: 8px;
+  background: transparent
+}
+
+.temp-high {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.temp-low {
+  font-size: 14px;
+  opacity: 0.95;
+}
+
 
 

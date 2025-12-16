@@ -88,43 +88,7 @@ function processForecast(list) {
   const firstFive = sortedDates.slice(0, 5);
   const result = firstFive.map((date) => [date, days[date]]);
 
-  // If we have at least 2 days, estimate day 6 and 7 using average daily change
-  if (firstFive.length >= 2) {
-      const highs = firstFive.map(d => days[d].high);
-      const lows = firstFive.map(d => days[d].low);
-
-      const highDeltas = [];
-      const lowDeltas = [];
-      for (let i = 1; i < highs.length; i++) { //calculate daily changes
-          highDeltas.push(highs[i] - highs[i - 1]); //difference between current and previous high
-          lowDeltas.push(lows[i] - lows[i - 1]); //difference between current and previous low
-      }
-
-      const avgHighDelta = highDeltas.reduce((a, b) => a + b, 0) / highDeltas.length; //average daily high change
-      const avgLowDelta = lowDeltas.reduce((a, b) => a + b, 0) / lowDeltas.length; //average daily low change
-
-      // last known date
-      const lastDateStr = firstFive[firstFive.length - 1]; //get last date string
-      const lastDate = new Date(`${lastDateStr}T12:00:00`); //set time to noon to avoid timezone issues
-      let prevHigh = highs[highs.length - 1]; //last known high temp
-      let prevLow = lows[lows.length - 1]; //last known low temp
-
-      //estimate next 2 days
-
-      for (let i = 1; i <= 2; i++) {
-          const nextDate = new Date(lastDate);
-          nextDate.setDate(lastDate.getDate() + i);
-          const nextDateStr = nextDate.toISOString().split('T')[0];
-
-          const estHigh = Math.round((prevHigh + avgHighDelta) * 10) / 10;
-          const estLow = Math.round((prevLow + avgLowDelta) * 10) / 10;
-
-          result.push([nextDateStr, { high: estHigh, low: estLow, estimated: true }]);
-
-          prevHigh = estHigh;
-          prevLow = estLow;
-      }
-  }
+  // No additional estimates — keep only first five days
 
   return result;
 }
@@ -136,16 +100,12 @@ function displayForecast(days) {
   days.forEach(([date, temps]) => {
     const dayEl = document.createElement("div");
     dayEl.classList.add("dayCSS");
-      if (temps && temps.estimated) dayEl.classList.add('estimated');
 
-      const estimatedLabel = temps && temps.estimated ? ' <em>(Estimated)</em>' : '';
-
-      dayEl.innerHTML = `
-              <strong>${getDayName(date)}, ${date}</strong>${estimatedLabel}<br>
-              High: ${Math.round(temps.high)}°<br>
-              Low: ${Math.round(temps.low)}°
-              <hr>
-          `;
+    dayEl.innerHTML = `
+            <strong>${getDayName(date)}, ${date}</strong><br>
+            High: ${Math.round(temps.high)}°<br>
+            Low: ${Math.round(temps.low)}°
+        `;
     output.appendChild(dayEl);
   });
 }
@@ -186,5 +146,13 @@ getForecastBtn.addEventListener("click", () => {
       .catch(() => {
         output.textContent = "Failed to load weather for the specified city.";
       });
+  }
+});
+
+// allow pressing Enter inside the input to trigger the same search as clicking the button
+cityInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    getForecastBtn.click();
   }
 });

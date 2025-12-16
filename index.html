@@ -7,21 +7,44 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="./styles/styles.css">
   </head>
-  <body>
-<div class="container mt-4, justify-content-center text-center">
+  <body class="body">
 
-    <h1 class="Header">5 Day Forecast</h1>
+  <div class="container mt-5 text-center">
 
-    <div class="mb-3">
-        <label for="cityInput" class="form-label">Enter City Name:</label>
-        <input type="text" class="form-control" id="cityInput" placeholder="e.g., Seattle">
-    </div>
-    <button id="getForecastBtn" class="btn btn-primary mb-3">Get Forecast</button>
+<div class="card shadow-sm rounded-4 mx-auto" style="max-width: 1400px;">
+  <div class="card-body">
+  
+    <div class="search-wrapper">
+      <label for="cityInput" class="form-label visually-hidden">Enter City Name</label>
+      <div class="search-input-group input-group">
+        <button id="getForecastBtn" class="search-btn" type="button" aria-label="Get Forecast">
+          <img src="/images/ec662f115cb1d2b9931c47bba31c050861cbd6e7.png" alt="Search Icon" class="search-icon">
+        </button>
+        <input
+          type="text"
+          class="form-control"
+          id="cityInput"
+          placeholder="e.g., Seattle"
+          aria-label="City name"
+        >
+      </div>
+    </div>    
+
     <div id="output">Loading forecast...</div>
 
+  </div>
 </div>
+```
 
-    <script src="./scripts/app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-  </body>
+  </div>
+
+  <script src="./scripts/app.js"></script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"
+  ></script>
+
+</body>
 </html>

@@ -1,161 +1,126 @@
-.dayCSS {
-    border: 1px solid #ffffff;
-    padding: 12px;
-    margin: 15px;
-    border-radius: 40px;
-    background-color: #b6b6b6;
-    color: #000000;
-    font-size: 20px;
-    font-weight: 400;
-    background-color: #555555b7;
+/* Page background & centering */
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  margin: 0;
+  background-image: url("../images/c2d1e2ae26153ab0a5d0b1c6ec2f04fc5a739f07.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-.body{
-  background-image: url('../images/c2d1e2ae26153ab0a5d0b1c6ec2f04fc5a739f07.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-
+/* Card */
 .card {
   position: relative;
   background: rgba(192, 192, 192, 0.425);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
+  border-radius: 100px;
+  overflow: hidden;
+  
 }
-
 .card .card-body {
   padding-top: 4rem;
-}
-
-.card .card-body {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Search */
 .search-wrapper {
   position: absolute;
-  top: 1rem;
-  left: 2rem;
+  top: 5rem;
+  left: 3rem;
   width: 25%;
   min-width: 220px;
-  display: flex;
-  align-items: center;
   z-index: 10;
 }
-
 .search-input-group {
   display: flex;
-  width: 100%;
   align-items: center;
+  gap: 0.5rem;
   background: #dbdbdb75;
   border-radius: 3rem;
-  padding: 0.25rem 0.5rem;
-  overflow: hidden;
+  padding: 0.7rem 1.4rem;
 }
-
+.search-input-group .form-control {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.8rem 0.8rem;
+  font-family: Jacques Francois, Georgia, "Times New Roman", serif;
+  font-size: 20px;
+}
 .search-btn {
-  flex: 0 0 44px;
   width: 44px;
   height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  border-radius: 9999px;
   border: none;
-  border-radius: 9999px; 
+  background: transparent;
   cursor: pointer;
-  margin-right: 0.5rem;
 }
-
-.search-btn svg {
-  width: 18px;
-  height: 18px;
-}
-
-.search-btn img,
-.search-icon,
-.search-img {
-  width: 22px;
-  height: 22px;
-  max-width: 100%;
-  max-height: 100%;
+.search-icon {
+  width: 30px;
+  height: 30px;
   object-fit: cover;
   border-radius: 50%;
   display: block;
-  pointer-events: none; 
 }
 
-.search-fallback {
-  display: inline-block;
+.search-input-group .form-control:focus,
+.search-input-group .form-control:focus-visible,
+.search-btn:focus,
+.search-btn:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.search-btn {
-  padding: 6px;
-  box-sizing: border-box;
-}
-
+.search-btn,
 .search-input-group .form-control {
-  flex: 1;
-  border: none;
-  box-shadow: none;
-  background: transparent;
-  padding: 0.4rem 0.6rem;
-  border-radius: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.search-input-group .form-control::placeholder {
-  color: #000000;
-}
-
-.forecast-row {
-  display: flex;
-  gap: 2.5rem;
-  justify-content: center;
-  align-items: flex-end;
-  margin-top: 1.5rem;
-  padding-bottom: 1rem;
-  overflow-x: auto;
-}
-
+/* Header: location name, condition, temps */
 .location-header {
   width: 100%;
   max-width: 900px;
-  margin: 0 auto 1rem auto;
+  margin: 0 auto 1rem;
   text-align: center;
-  color: #000;
-}
-.location-header h1 {
-  margin: 0 0 0.25rem 0;
-  font-size: 2.25rem;
-  font-weight: 700;
-  font-family: Georgia, 'Times New Roman', serif;
-  color: #000;
 }
 .location-icon {
   width: 90px;
   height: 90px;
-  object-fit: contain;
   display: block;
-  margin: 0 auto 0.35rem auto;
+  margin: 0 auto 0.35rem;
+  object-fit: contain;
+}
+.location-header h1 {
+  margin: 0 0 0.25rem;
+  font-family: "Jacques Francois", Georgia, "Times New Roman", serif;
+  font-size: 56px;
+  font-weight: 400;
+  color: #000;
 }
 .location-cond-row {
-  margin-top: 0;
   margin-bottom: 0.45rem;
 }
 .location-cond {
-  font-size: 20px;
+  font-size: 40px;
   color: #000;
   opacity: 0.95;
-  font-weight: 600;
+  font-weight: 400;
 }
 .location-sub {
   display: flex;
   align-items: center;
-  width: 100%;
-  gap: 1rem;
   justify-content: center;
+  gap: 2.5rem;
 }
 .side-temp {
   display: flex;
@@ -163,14 +128,15 @@
   align-items: center;
   min-width: 70px;
 }
-.min-temp, .max-temp {
+.min-temp,
+.max-temp {
+  font-size: 40px;
+  font-weight: 400;
   color: #000;
-  font-weight: 700;
-  font-size: 1rem;
 }
 .temp-label {
+  font-size: 24px;
   color: #000;
-  font-size: 0.85rem;
   opacity: 0.9;
 }
 .center-temp {
@@ -179,17 +145,19 @@
   align-items: center;
 }
 .current-temp {
-  font-size: 68px;
-  font-weight: 800;
+  font-size: 88px;
+  font-weight: 400;
   line-height: 1;
   color: #000;
 }
-.current-cond {
-  font-size: 20px;
-  color: #000;
-  margin-top: 0.25rem;
+
+.location-header,
+.location-header * {
+  font-family: "Jacques Francois", Georgia, "Times New Roman", serif !important;
+  font-weight: 400 !important;
 }
 
+/* Forecast row */
 .forecast-container {
   width: 100%;
   max-width: 900px;
@@ -199,15 +167,18 @@
   margin-top: auto;
   padding-bottom: 1rem;
 }
-
 .forecast-row {
+  display: flex;
+  gap: 2rem;
   justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 2rem;
+  overflow-x: auto;
 }
-
 .forecast-box {
   min-width: 110px;
-  width: 120px;
-  min-height: 160px;
+  width: 140px;
+  min-height: 200px;
   background: rgba(0, 0, 0, 0.55);
   border-radius: 12px;
   padding: 12px;
@@ -215,55 +186,39 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   box-sizing: border-box;
 }
-
 .forecast-box .day-name {
-  font-weight: 700;
+  font-weight: 400;
   margin-bottom: 8px;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 28px;
 }
-
 .weather-icon {
   width: 54px;
   height: 54px;
   object-fit: contain;
   margin-bottom: 8px;
-  cursor: default;
   border-radius: 8px;
-  background: transparent
 }
-
 .temp-high {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   margin-bottom: 4px;
 }
-
 .temp-low {
-  font-size: 14px;
+  font-size: 20px;
   opacity: 0.95;
 }
-
-/* arrows for high/low temperatures */
 .temp-high::before {
-  content: '↑';
+  content: "↑";
   margin-right: 6px;
-  color: #ffffff;
+  color: #fff;
   font-weight: 800;
-  font-size: 0.95em;
-  vertical-align: middle;
 }
 .temp-low::before {
-  content: '↓';
+  content: "↓";
   margin-right: 6px;
-  color: #ffffff;
+  color: #fff;
   font-weight: 800;
-  font-size: 0.95em;
-  vertical-align: middle;
 }
-
-
-

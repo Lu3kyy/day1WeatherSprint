@@ -15,7 +15,7 @@
 /* Card */
 .card {
   position: relative;
-  background: rgba(192, 192, 192, 0.705);
+  background: rgba(192, 192, 192, 0.425);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   border-radius: 100px;
@@ -42,7 +42,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: #dbdbdb75;
+  background: #e6e5e5a8;
   border-radius: 3rem;
   padding: 0.7rem 1.4rem;
 }
@@ -169,7 +169,7 @@
 }
 .forecast-row {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 2rem;
@@ -180,7 +180,7 @@
   width: 140px;
   min-height: 200px;
   background: rgba(0, 0, 0, 0.55);
-  border-radius: 12px;
+  border-radius: 20px;
   padding: 12px;
   color: #fff;
   display: flex;

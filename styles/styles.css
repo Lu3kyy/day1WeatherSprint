@@ -11,7 +11,7 @@
 }
 
 .body{
-    background-image: url(/images/c2d1e2ae26153ab0a5d0b1c6ec2f04fc5a739f07.jpg);
+  background-image: url('../images/c2d1e2ae26153ab0a5d0b1c6ec2f04fc5a739f07.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -19,13 +19,19 @@
 
 .card {
   position: relative;
-  background: rgba(128,128,128,0.25);
+  background: rgba(192, 192, 192, 0.425);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
 }
 
 .card .card-body {
   padding-top: 4rem;
+}
+
+.card .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .search-wrapper {
@@ -100,17 +106,102 @@
 }
 
 .search-input-group .form-control::placeholder {
-  color: #b3b3b3;
+  color: #000000;
 }
 
 .forecast-row {
   display: flex;
-  gap: 1rem;
+  gap: 2.5rem;
   justify-content: center;
   align-items: flex-end;
   margin-top: 1.5rem;
   padding-bottom: 1rem;
   overflow-x: auto;
+}
+
+.location-header {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 1rem auto;
+  text-align: center;
+  color: #000;
+}
+.location-header h1 {
+  margin: 0 0 0.25rem 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #000;
+}
+.location-icon {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 0.35rem auto;
+}
+.location-cond-row {
+  margin-top: 0;
+  margin-bottom: 0.45rem;
+}
+.location-cond {
+  font-size: 20px;
+  color: #000;
+  opacity: 0.95;
+  font-weight: 600;
+}
+.location-sub {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  justify-content: center;
+}
+.side-temp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+}
+.min-temp, .max-temp {
+  color: #000;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.temp-label {
+  color: #000;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+.center-temp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.current-temp {
+  font-size: 68px;
+  font-weight: 800;
+  line-height: 1;
+  color: #000;
+}
+.current-cond {
+  font-size: 20px;
+  color: #000;
+  margin-top: 0.25rem;
+}
+
+.forecast-container {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding-bottom: 1rem;
+}
+
+.forecast-row {
+  justify-content: center;
 }
 
 .forecast-box {
@@ -154,6 +245,24 @@
 .temp-low {
   font-size: 14px;
   opacity: 0.95;
+}
+
+/* arrows for high/low temperatures */
+.temp-high::before {
+  content: '↑';
+  margin-right: 6px;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.95em;
+  vertical-align: middle;
+}
+.temp-low::before {
+  content: '↓';
+  margin-right: 6px;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.95em;
+  vertical-align: middle;
 }
 
 

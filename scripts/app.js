@@ -4,7 +4,7 @@ const getForecastBtn = document.getElementById("getForecastBtn");
 const cityInput = document.getElementById("cityInput");
 
 const weatherImageMap = { //setting up all my weather images
-  Clear: './images/icons8-summer-100.png',
+  Clear: '../images/icons8-summer-100.png',
   Clouds: './images/icons8-partly-cloudy-day-100.png',
   Rain: './images/icons8-heavy-rain-100 (2).png',
   Drizzle: './images/icons8-light-rain-100 (1).png',
@@ -20,7 +20,13 @@ const weatherImageMap = { //setting up all my weather images
   Squall: './images/icons8-storm-with-heavy-rain-100.png',
   Tornado: './images/icons8-storm-with-heavy-rain-100.png'
 };
-const defaultWeatherImage = './images/icons8-partly-cloudy-day-100.png';
+const defaultWeatherImage = './images/icons8-summer-100.png';
+const locationNameEl = document.getElementById('locationName');
+const currentTempEl = document.getElementById('currentTemp');
+const currentCondEl = document.getElementById('currentCond');
+const minTempEl = document.getElementById('minTemp');
+const maxTempEl = document.getElementById('maxTemp');
+const locationIconEl = document.getElementById('locationIcon');
 
 //run when page loads
 window.addEventListener("load", getLocation);
@@ -73,6 +79,21 @@ function fetchCurrentWeather(lat, lon) {
     .then((res) => res.json())
     .then((data) => {
       console.log("RAW CURRENT WEATHER DATA:", data);
+      if (data && typeof data === 'object') {
+        if (data.name && locationNameEl) locationNameEl.textContent = data.name;
+        if (data.main && typeof data.main.temp !== 'undefined' && currentTempEl) {
+          currentTempEl.textContent = `${Math.round(data.main.temp)}°F`;
+        }
+        if (data.weather && data.weather[0] && currentCondEl) {
+          currentCondEl.textContent = data.weather[0].main;
+          // set header icon to match current condition
+          const cond = data.weather[0].main;
+          if (locationIconEl) {
+            const mapped = weatherImageMap[cond] || defaultWeatherImage;
+            locationIconEl.src = mapped;
+          }
+        }
+      }
     })
     .catch(() => {
       output.textContent = "Failed to load current weather.";
@@ -136,11 +157,7 @@ function displayForecast(days) {
       highEl.textContent = `${Math.round(temps.high)}°`;
       lowEl.textContent = `${Math.round(temps.low)}°`;
       const cond = temps.condition || 'Clear';
-      let img = weatherImageMap[cond];
-      if (!img) {
-        console.warn(`No mapped image for condition: ${cond}. Falling back to day${idx + 1}.png`);
-        img = `./images/day${idx + 1}.png`;
-      }
+    let img = weatherImageMap[cond] || defaultWeatherImage;
       if (iconEl) {
         iconEl.src = img;
         iconEl.onerror = () => { iconEl.src = defaultWeatherImage; };
@@ -153,6 +170,18 @@ function displayForecast(days) {
       box.style.opacity = 0.6;
     }
   });
+
+  if (days && days[0]) {
+    const todayTemps = days[0][1];
+    if (todayTemps) {
+      if (minTempEl) minTempEl.textContent = `${Math.round(todayTemps.low)}°`;
+      if (maxTempEl) maxTempEl.textContent = `${Math.round(todayTemps.high)}°`;
+      if (!locationIconEl || (locationIconEl && locationIconEl.src && !locationIconEl.src.includes('icons8'))) {
+        const cond = todayTemps.condition || 'Clear';
+        if (locationIconEl) locationIconEl.src = weatherImageMap[cond] || defaultWeatherImage;
+      }
+    }
+  }
 }
 
 function getDayName(dateString) {

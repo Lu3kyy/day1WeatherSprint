@@ -1,150 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap demo</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./styles/styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jacques+Francois&display=swap" rel="stylesheet">
-  </head>
 
-  <body class="body">
-    <div class="container mt-5 text-center">
-      <div class="card shadow-sm mx-auto">
-        <div class="card-body">
-          <div class="search-wrapper">
-            <label for="cityInput" class="form-label visually-hidden"
-              >Enter City Name</label>
-            <div class="search-input-group input-group">
-              <button
-                id="getForecastBtn"
-                class="search-btn"
-                type="button"
-                aria-label="Get Forecast"
-              >
-                <img
-                  src="./images/ec662f115cb1d2b9931c47bba31c050861cbd6e7.png"
-                  alt="Search Icon"
-                  class="search-icon"
-                />
-              </button>
-              <input
-                type="text"
-                class="form-control"
-                id="cityInput"
-                placeholder="e.g., Seattle"
-                aria-label="City name"
-              />
-            </div>
-            <img src="/images/icons8-heart-100 (1).png" alt="Heart Icon" class="heart-icon" type="button" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bootstrap demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./styles/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jacques+Francois&display=swap"
+    rel="stylesheet">
+</head>
+
+<body class="body">
+  <div class="container mt-5 text-center">
+    <div class="card shadow-sm mx-auto">
+      <div class="card-body">
+        <div class="search-wrapper">
+          <label for="cityInput" class="form-label visually-hidden">Enter City Name</label>
+          <div class="search-input-group input-group">
+            <button id="getForecastBtn" class="search-btn" type="button" aria-label="Get Forecast">
+              <img src="./images/ec662f115cb1d2b9931c47bba31c050861cbd6e7.png" alt="Search Icon" class="search-icon" />
+            </button>
+            <input type="text" class="form-control" id="cityInput" placeholder="e.g., Seattle" aria-label="City name" />
           </div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br /><!--yes im lazy-->
-          <div class="forecast-container">
-            <div id="locationHeader" class="location-header">
-              <img
-                id="locationIcon"
-                class="location-icon"
-                src="./images/icons8-summer-100.png"
-                alt="Current weather icon"
-              />
-              <h1 id="locationName">--</h1>
-              <div id="locationCondRow" class="location-cond-row">
-                <div id="currentCond" class="location-cond">--</div>
-              </div>
-              <div class="location-sub">
-                <div class="side-temp left">
-                  <div id="minTemp" class="min-temp">--°</div>
-                  <div class="temp-label">Min↓</div>
-                </div>
-                <div class="center-temp">
-                  <div id="currentTemp" class="current-temp">--°F</div>
-                </div>
-                <div class="side-temp right">
-                  <div id="maxTemp" class="max-temp">--°</div>
-                  <div class="temp-label">Max↑</div>
-                </div>
-              </div>
-            </div>
-            <br />
-            <div id="forecastRow" class="forecast-row">
-              <div class="forecast-box" data-day-index="0">
-                <div class="day-name">Mon</div>
-                <img
-                  src="./images/icons8-summer-100.png"
-                  alt="Day 1 icon"
-                  class="weather-icon"
-                />
-                <div class="temp-high">--°</div>
-                <div class="temp-low">--°</div>
-              </div>
-              <div class="forecast-box" data-day-index="1">
-                <div class="day-name">Tue</div>
-                <img
-                  src="./images/icons8-summer-100.png"
-                  alt="Day 2 icon"
-                  class="weather-icon"
-                />
-                <div class="temp-high">--°</div>
-                <div class="temp-low">--°</div>
-              </div>
-              <div class="forecast-box" data-day-index="2">
-                <div class="day-name">Wed</div>
-                <img
-                  src="./images/icons8-summer-100.png"
-                  alt="Day 3 icon"
-                  class="weather-icon"
-                />
-                <div class="temp-high">--°</div>
-                <div class="temp-low">--°</div>
-              </div>
-              <div class="forecast-box" data-day-index="3">
-                <div class="day-name">Thu</div>
-                <img
-                  src="./images/icons8-summer-100.png"
-                  alt="Day 4 icon"
-                  class="weather-icon"
-                />
-                <div class="temp-high">--°</div>
-                <div class="temp-low">--°</div>
-              </div>
-              <div class="forecast-box" data-day-index="4">
-                <div class="day-name">Fri</div>
-                <img
-                  src="./images/icons8-summer-100.png"
-                  alt="Day 5 icon"
-                  class="weather-icon"
-                />
-                <div class="temp-high">--°</div>
-                <div class="temp-low">--°</div>
-              </div>
+          <div id="favoriteWrapper">
+            <img src="/images/icons8-heart-100 (1).png" alt="Heart Icon" class="heart-icon" type="button"
+              id="favoriteBtn" />
+            <div id="favoritesMenu" class="favorites-menu hidden">
+              <ul id="favoritesList"></ul>
             </div>
           </div>
-          <div id="output" class="visually-hidden" aria-live="polite"></div>
-          <!---->
         </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br /><!--yes im lazy-->
+        <div class="forecast-container">
+          <div id="locationHeader" class="location-header">
+            <img id="locationIcon" class="location-icon" src="./images/icons8-summer-100.png"
+              alt="Current weather icon" />
+            <h1 id="locationName">--</h1>
+            <div id="locationCondRow" class="location-cond-row">
+              <div id="currentCond" class="location-cond">--</div>
+            </div>
+            <div class="location-sub">
+              <div class="side-temp left">
+                <div id="minTemp" class="min-temp">--°</div>
+                <div class="temp-label">Min↓</div>
+              </div>
+              <div class="center-temp">
+                <div id="currentTemp" class="current-temp">--°F</div>
+              </div>
+              <div class="side-temp right">
+                <div id="maxTemp" class="max-temp">--°</div>
+                <div class="temp-label">Max↑</div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div id="forecastRow" class="forecast-row">
+            <div class="forecast-box" data-day-index="0">
+              <div class="day-name">Mon</div>
+              <img src="./images/icons8-summer-100.png" alt="Day 1 icon" class="weather-icon" />
+              <div class="temp-high">--°</div>
+              <div class="temp-low">--°</div>
+            </div>
+            <div class="forecast-box" data-day-index="1">
+              <div class="day-name">Tue</div>
+              <img src="./images/icons8-summer-100.png" alt="Day 2 icon" class="weather-icon" />
+              <div class="temp-high">--°</div>
+              <div class="temp-low">--°</div>
+            </div>
+            <div class="forecast-box" data-day-index="2">
+              <div class="day-name">Wed</div>
+              <img src="./images/icons8-summer-100.png" alt="Day 3 icon" class="weather-icon" />
+              <div class="temp-high">--°</div>
+              <div class="temp-low">--°</div>
+            </div>
+            <div class="forecast-box" data-day-index="3">
+              <div class="day-name">Thu</div>
+              <img src="./images/icons8-summer-100.png" alt="Day 4 icon" class="weather-icon" />
+              <div class="temp-high">--°</div>
+              <div class="temp-low">--°</div>
+            </div>
+            <div class="forecast-box" data-day-index="4">
+              <div class="day-name">Fri</div>
+              <img src="./images/icons8-summer-100.png" alt="Day 5 icon" class="weather-icon" />
+              <div class="temp-high">--°</div>
+              <div class="temp-low">--°</div>
+            </div>
+          </div>
+        </div>
+        <div id="output" class="visually-hidden" aria-live="polite"></div>
+        <!---->
       </div>
     </div>
+  </div>
 
-    <script src="./scripts/app.js"></script>
+  <script src="./scripts/app.js"></script>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>

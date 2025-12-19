@@ -163,7 +163,8 @@ function updateCurrentWeatherDisplay(data) {
     if (data.name) {
       currentCity = data.name;
       locationNameEl.textContent = data.name;
-      saveLastCity(currentCity); // Save to localStorage
+      saveLastCity(currentCity);
+      saveRecentSearch(currentCity); // Save to localStorage
       updateFavoriteIcon();
     }
     
@@ -351,7 +352,66 @@ favoriteBtn.addEventListener("click", (e) => {
 });
 
 // Close menu when clicking outside
-document.addEventListener("click", () => {
-  favoritesMenu.classList.add("hidden");
-  favoritesMenuOpen = false;
+document.addEventListener("click", (e) => {
+  if (!favoritesMenu.contains(e.target) && e.target !== favoriteBtn) {
+    favoritesMenu.classList.add("hidden");
+    favoritesMenuOpen = false;
+  }
+});
+
+
+function getRecentSearches() {
+  return JSON.parse(localStorage.getItem("recentSearches")) || [];
+}
+
+function saveRecentSearch(city) {
+  let searches = getRecentSearches();
+
+  searches = searches.filter(c => c !== city);
+  searches.unshift(city);
+  searches = searches.slice(0, 3);
+
+  localStorage.setItem("recentSearches", JSON.stringify(searches));
+}
+
+
+function renderRecentSearches() {
+  const list = document.getElementById("recentSearchesList");
+  const searches = getRecentSearches();
+
+  list.innerHTML = "";
+
+  if (searches.length === 0) {
+    list.innerHTML = "<li>No recent searches</li>";
+    return;
+  }
+
+  searches.forEach(city => {
+    const li = document.createElement("li");
+    li.textContent = city;
+    li.style.cursor = "pointer";
+
+    li.addEventListener("click", (e) => {
+      e.stopPropagation();
+      cityInput.value = city;
+      getForecastBtn.click();
+      recentSearches.classList.add("hidden");
+    });
+
+    list.appendChild(li);
+  });
+}
+
+
+const recentSearches = document.getElementById("recentSearches");
+
+cityInput.addEventListener("focus", () => {
+  renderRecentSearches();
+  recentSearches.classList.remove("hidden");
+});
+
+document.addEventListener("click", (e) => {
+  if (!recentSearches.contains(e.target) && e.target !== cityInput) {
+    recentSearches.classList.add("hidden");
+  }
 });
